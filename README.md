@@ -7,7 +7,7 @@ to build a jar.  You can use this to plug into the unix command piping.
 
 Usaage:
 EclipseRunner.py [options] -exec {java command line here}
-
+`
 Options:
   -h, --help            show this help message and exit
   -p PROJECT, --project=PROJECT
@@ -35,5 +35,5 @@ Options:
                         attached
   -V MAPPINGS, --variable-mapping=MAPPINGS
                         override an eclipse variable mapping
-
+`
 
