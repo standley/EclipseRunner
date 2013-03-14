@@ -1,7 +1,7 @@
 EclipseRunner
 =============
 
-From a terminal, run a java script located in an Eclipse project without having 
+From a terminal, run a java program located in an Eclipse project without having 
 to build a jar.  You can use this to plug into the unix command piping.
 
 
