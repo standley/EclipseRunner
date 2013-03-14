@@ -5,10 +5,11 @@ From a terminal, run a java script located in an Eclipse project without having
 to build a jar.  You can use this to plug into the unix command piping.
 
 
-  Usaage:
+  Usaage (Note options before '-exec' are options for this script, options after 
+  are passed the java script:
+  
   EclipseRunner.py [options] -exec {java command line here}
-  
-  
+
   Options:
   
     -h, --help            show this help message and exit
@@ -38,4 +39,16 @@ to build a jar.  You can use this to plug into the unix command piping.
     -V MAPPINGS, --variable-mapping=MAPPINGS
                           override an eclipse variable mapping
 
+  
+  Examples: 
+  
+  Run fully.qualified.Classname
+  
+    EclipseRunner.py -exec fully.qualified.ClassName --script-option1 1 --script-option2 2
+    
+  Run remote debugger, suspending and waiting for debugger to attach, on class fully.qualified.Classname
+
+    EclipseRunner.py -d -s -exec fully.qualified.ClassName --script-option1 1 --script-option2 2
+    
+  
 
