@@ -117,11 +117,18 @@ def processProject(dir, state):
 
 
 
+class NoVariableMappingsError(Exception):
+    def __init__(self, workspaceDir):
+        self.workspace = workspaceDir
+
+    def __str__(self):
+        return 'Invalid workspace directory "%s" could not find the variable mapping file "%s"' % (self.workspace, VARIABLE_MAPPING_FILE)
+
 def getVariableMappings(workspaceDir):
     try:
         file = open(os.path.join(workspaceDir, VARIABLE_MAPPING_FILE), 'r')
     except IOError, e:
-        raise 'Invalid workspace directory, no variable mappings found', e
+        raise NoVariableMappingsError(workspaceDir)
     
     mapping = {}
     for line in file:
