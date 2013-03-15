@@ -227,7 +227,8 @@ def main(options, progArgs):
     for sysprop in options.sys_properties:
         cmd = '%s -D%s' % (cmd, sysprop)
     cmd = '%s -Xmx%sM' % (cmd, options.memory)
-    cmd = '%s %s' % (cmd, os.environ['JAVA_OPTS'])
+    if os.environ.has_key('JAVA_OPTS'):
+        cmd = '%s %s' % (cmd, os.environ['JAVA_OPTS'])
     if not options.assertions_off:
         cmd = '%s %s'% (cmd, '-ea')
      
