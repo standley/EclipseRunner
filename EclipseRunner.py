@@ -253,4 +253,5 @@ if __name__ == '__main__':
     (myargs, progargs) = splitArgs(sys.argv)
     options = parseOpts(myargs)
     retval = main(options, progargs)
-    sys.exit(1)
+    if retval:
+        sys.exit(1)
