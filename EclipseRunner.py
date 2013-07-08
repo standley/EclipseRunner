@@ -253,5 +253,4 @@ if __name__ == '__main__':
     (myargs, progargs) = splitArgs(sys.argv)
     options = parseOpts(myargs)
     retval = main(options, progargs)
-    print "eclipserunner ret = " + str(retval)
     sys.exit(1)
