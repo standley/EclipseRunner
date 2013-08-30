@@ -3,6 +3,7 @@
 import os, os.path
 import xml.parsers.expat
 import platform
+import subprocess
 
 
 CLASSPATH = 'CLASSPATH'
@@ -220,31 +221,35 @@ def main(options, progArgs):
     classpath = os.pathsep.join((extra_paths, classpath))
     os.putenv(CLASSPATH, classpath)
 
-    cmd = 'java'
+    cmd = []
     if os.environ.has_key(JAVA_HOME):
-        cmd = '"%s/bin/java"' % os.environ[JAVA_HOME]
+        cmd.append('%s/bin/java' % os.environ[JAVA_HOME])
+    else:
+        cmd.append('java')
 
     for sysprop in options.sys_properties:
-        cmd = '%s -D%s' % (cmd, sysprop)
-    cmd = '%s -Xmx%sM' % (cmd, options.memory)
-    if os.environ.has_key('JAVA_OPTS'):
-        cmd = '%s %s' % (cmd, os.environ['JAVA_OPTS'])
+        cmd.append('-D' + sysprop)
+    cmd.append('-Xmx%sM' % options.memory)
+    # TODO: Needs work...
+    #if os.environ.has_key('JAVA_OPTS'): 
+    #  cmd = '%s %s' % (cmd, os.environ['JAVA_OPTS'])
     if not options.assertions_off:
-        cmd = '%s %s'% (cmd, '-ea')
+        cmd.append('-ea')
      
     if isDebug:
         suspend = options.suspend or 'n'
-        debug_params = '-Xdebug -Xrunjdwp:transport=%s,address=%s,server=y,suspend=%s' % (options.transport, options.address, suspend)
-        cmd = '%s %s' % (cmd, debug_params)
+        cmd.append('-Xdebug')
+        cmd.append('-Xrunjdwp:transport=%s,address=%s,server=y,suspend=%s' % (options.transport, options.address, suspend))
         
-    cmd = '%s %s' % (cmd, ' '.join(progArgs))
+    cmd += progArgs
     
     if state.isVerbose:
         print '\n\n======================================='
         print "Running command:"
         print cmd
         print '=======================================\n\n'
-    return os.system(cmd)
+
+    return subprocess.call(cmd)
     
 
 if __name__ == '__main__':
