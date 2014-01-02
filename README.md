@@ -25,6 +25,8 @@ to build a jar.  You can use this to plug into the unix command piping.
     -A                    turn off java assertions
     -c EXTRA_CLASSPATH    Add additional classpath entries (added to front of
                           classpath)
+    -O JAVA_OPTIONS       Add a java option. (i.e. to set -Xmx1024M on the java
+                          execution you would use -O Xmx1024M or to set a system
     -S SYS_PROPERTIES     Add system properties to the java execution (adds a -D
                           value to the java exec command)
     -m MEMORY, --memory=MEMORY
