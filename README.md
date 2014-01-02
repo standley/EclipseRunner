@@ -27,6 +27,7 @@ to build a jar.  You can use this to plug into the unix command piping.
                           classpath)
     -O JAVA_OPTIONS       Add a java option. (i.e. to set -Xmx1024M on the java
                           execution you would use -O Xmx1024M or to set a system
+                          property -Dname=value you would use -O Dname=value)
     -S SYS_PROPERTIES     Add system properties to the java execution (adds a -D
                           value to the java exec command)
     -m MEMORY, --memory=MEMORY
