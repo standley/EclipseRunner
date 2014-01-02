@@ -168,8 +168,9 @@ def parseOpts(myargs):
     # define arguments to control how java is run
     parser.add_option('-A',  dest='assertions_off', action='store_true', help="turn off java assertions")
     parser.add_option('-c',  dest='extra_classpath', action='append', default=[], help="Add additional classpath entries (added to front of classpath)")
+    parser.add_option('-O', dest='java_options', action='append', default=[], help='Add a java option. (i.e. to set -Xmx1024M on the java execution you would use -O Xmx1024M or to set a system property -Dname=value you would use -O Dname=value')
     parser.add_option('-S',  dest='sys_properties', action='append', default=[], help="Add system properties to the java execution (adds a -D value to the java exec command)")
-    parser.add_option('-m', '--memory', type='int', default=512, help="set the java's max memory : default - 512")
+    parser.add_option('-m', '--memory', type='int',  help="set the java's max memory : default - 512")
     parser.add_option('-d', '--debug', action='store_true', help="start java with remote debugging")
     parser.add_option('-t', '--jdwp-transport', dest='transport', default='dt_socket',  help="the jdwp transport : default - dt_socket")
     parser.add_option('-a', '--jdwp-address', dest='address', type='int', default='8000',  help="the jdwp address : default - 8000")
@@ -227,9 +228,13 @@ def main(options, progArgs):
     else:
         cmd.append('java')
 
+    for prop in options.java_options:
+        cmd.append('-' + prop)
+        
     for sysprop in options.sys_properties:
         cmd.append('-D' + sysprop)
-    cmd.append('-Xmx%sM' % options.memory)
+    if options.memory:
+        cmd.append('-Xmx%sM' % options.memory)
     # TODO: Needs work...
     #if os.environ.has_key('JAVA_OPTS'): 
     #  cmd = '%s %s' % (cmd, os.environ['JAVA_OPTS'])
